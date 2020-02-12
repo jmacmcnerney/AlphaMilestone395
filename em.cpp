@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "functions.cpp"
 
 using namespace std;
 
@@ -14,35 +15,18 @@ using namespace std;
 - They player can buy any item with the coin.
 - When the player returns to the cottage with the good item, grandmother is happy. Otherwise she is mad.*/
 
-// Wait for given input before continueing
-void WaitFor(string message) {
-	while (true) {
-		string i;
-		getline(cin, i);
-		if (i == message) {
-			break;
-		}
-	}
-}
-
-// Send a command to Camelot.
-void Action(string command) {
-	cout << ("start " + command) << endl;
-	WaitFor("succeeded " + command);
-}
-
 int main() {
 	//Place Creations
-	Action("CreatePlace(BobsHouse, Cottage)");
-	Action("CreatePlace(Prison, Dungeon)");
-	Action("CreatePlace(Newcity, City)");
+	Action("CreatePlace(BobsHouse, Cottage)", true);
+	Action("CreatePlace(Prison, Dungeon)", true);
+	Action("CreatePlace(Newcity, City)", true);
 	//Bob Character
-	Action("CreateCharacter(Bob, B)");
-	Action("SetClothing(Bob, Peasant)");
-	Action("SetHairStyle(Bob, Short_Full)");
-	Action("SetPosition(Bob, BobsHouse.Door)");
+	Action("CreateCharacter(Bob, B)", true);
+	Action("SetClothing(Bob, Peasant)", true);
+	Action("SetHairStyle(Bob, Short_Full)", true);
+	Action("SetPosition(Bob, BobsHouse.Door)", true);
 	//Menu
-	Action("ShowMenu()");
+	Action("ShowMenu()", true);
 	//Inventories
 	vector<string> playerInv;
 	vector<string> chestInv;
@@ -52,9 +36,9 @@ int main() {
 		string i;
 		getline(cin, i);
 		if (i == "input Selected Start") {
-			Action("SetCameraFocus(Bob)");
-			Action("HideMenu()");
-			Action("EnableInput()");
+			Action("SetCameraFocus(Bob)", true);
+			Action("HideMenu()", true);
+			Action("EnableInput()", true);
 		}
 	}
 
