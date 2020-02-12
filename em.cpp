@@ -19,7 +19,7 @@ int main() {
 	//Place Creations
 	Action("CreatePlace(BobsHouse, Cottage)", true);
 	Action("CreatePlace(Newcity, City)", true);
-	
+
 	//Bob Character
 	Action("CreateCharacter(Bob, B)", true);
 	Action("SetClothing(Bob, Peasant)", true);
@@ -29,7 +29,7 @@ int main() {
 	Action("CreateCharacter(Grandmother, A)", true);
 	Action("SetClothing(Grandmother, Beggar)", true);
 	Action("SetHairStyle(Grandmother, Ponytail)", true);
-	Action("SetPosition(Grandmother, BobsHouse.Door", true);
+	Action("SetPosition(Grandmother, BobsHouse.Door)", true);
 
 	Action("CreateCharacter(Seller, B)", true);
 	Action("SetClothing(Seller, Merchant)", true);
