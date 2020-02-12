@@ -18,13 +18,23 @@ using namespace std;
 int main() {
 	//Place Creations
 	Action("CreatePlace(BobsHouse, Cottage)", true);
-	Action("CreatePlace(Prison, Dungeon)", true);
 	Action("CreatePlace(Newcity, City)", true);
+	
 	//Bob Character
 	Action("CreateCharacter(Bob, B)", true);
 	Action("SetClothing(Bob, Peasant)", true);
 	Action("SetHairStyle(Bob, Short_Full)", true);
 	Action("SetPosition(Bob, BobsHouse.Door)", true);
+
+	Action("CreateCharacter(Grandmother, A)", true);
+	Action("SetClothing(Grandmother, Beggar)", true);
+	Action("SetHairStyle(Grandmother, Ponytail)", true);
+	Action("SetPosition(Grandmother, BobsHouse.Door", true);
+
+	Action("CreateCharacter(Seller, B)", true);
+	Action("SetClothing(Seller, Merchant)", true);
+	Action("SetHairStyle(Seller, Spiky)", true);
+
 	//Menu
 	Action("ShowMenu()", true);
 	//Inventories
