@@ -90,13 +90,7 @@ int main() {
 
 		//----------Begin Grandmother Dialog----------
 		else if (i == "input Talk_To_Grandmother Grandmother") {
-			Action("DisableInput()", true);
-			Action("WalkTo(Bob, Grandmother)", true);
-			Action("ShowDialog()", true);
-			Action("ClearDialog()", true);
-			Action("SetLeft(Bob)", true);
-			Action("SetRight(Grandmother)", true);
-			Action("EnableInput()", true);
+			SetupDialog("Bob", "Grandmother");
 			if (has_apple)
 				Action("SetDialog(Thank you for getting that for me! [end|Of course!])", true);
 			else if (has_sword)
@@ -116,13 +110,7 @@ int main() {
 
 		//----------Begin Seller Dialog----------
 		else if (i == "input Talk_To_Seller Seller") {
-			Action("DisableInput()", true);
-			Action("WalkTo(Bob, Seller)", true);
-			Action("ShowDialog()", true);
-			Action("ClearDialog()", true);
-			Action("SetLeft(Bob)", true);
-			Action("SetRight(Seller)", true);
-			Action("EnableInput()", true);
+			SetupDialog("Bob", "Seller");
 			if (has_coin)
 				Action("SetDialog(Check out what I have for sale! [buy|Let me see!] [end|No thanks.])", true);
 			else
@@ -149,13 +137,7 @@ int main() {
 				Action("Enter(Bob, MerchantFarm.Door, true)", true);
 			}
 			else {
-				Action("DisableInput()", true);
-				Action("WalkTo(Bob, BobsHouse.Door)", true);
-				Action("ShowDialog()", true);
-				Action("ClearDialog()", true);
-				Action("SetLeft(Bob)", true);
-				Action("SetRight(Grandmother)", true);
-				Action("EnableInput()", true);
+				SetupDialog("Bob", "Grandmother");
 				if (has_apple)
 					Action("SetDialog(Dont leave! Dinner will be ready soon. [end|Yum!])", true);
 				else if (has_sword)
@@ -185,33 +167,11 @@ int main() {
 		}
 
 		else if (i == "input Buy_Apple Good Apple") {
-			Action("RemoveFromList(Good Apple)", true);
-			for (int i = 0; i < sellerInv.size(); i++) {
-				if (sellerInv[i] == "Good Apple") {
-					sellerInv.erase(sellerInv.begin() + i);
-				}
-			}
-			Action("DisableIcon(Buy_Apple, Good Apple)", true);
-			playerInv.erase(playerInv.begin());
-			playerInv.push_back("Good Apple");
-			Action("HideList()", true);
-			has_apple = true;
-			has_coin = false;
+		PurchaseFunct("Good Apple", "Buy_Apple", sellerInv, playerInv, has_coin, has_apple);
 		}
 
 		else if (i == "input Buy_Sword Bad Sword") {
-			Action("RemoveFromList(Bad Sword)", true);
-			for (int i = 0; i < sellerInv.size(); i++) {
-				if (sellerInv[i] == "Bad Sword") {
-					sellerInv.erase(sellerInv.begin() + i);
-				}
-			}
-			Action("DisableIcon(Buy_Sword, Bad Sword)", true);
-			playerInv.erase(playerInv.begin());
-			playerInv.push_back("Bad Sword");
-			Action("HideList()", true);
-			has_sword = true;
-			has_coin = false;
+		PurchaseFunct("Bad Sword", "Buy_Sword", sellerInv, playerInv, has_coin, has_sword);
 		}
 		//----------End Item Transactions----------
 	}
