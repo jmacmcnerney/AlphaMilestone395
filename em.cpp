@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "functions.cpp"
 
 using namespace std;
@@ -21,23 +20,13 @@ int main() {
 	Action("CreatePlace(MerchantFarm, Farm)", true);
 
 	//Bob Character
-	Action("CreateCharacter(Bob, B)", true);
-	Action("SetClothing(Bob, Peasant)", true);
-	Action("SetHairStyle(Bob, Short_Full)", true);
-	Action("SetPosition(Bob, BobsHouse.Door)", true);
+	SetupCharacter("Bob", "B", "Peasant", "Short_Full", "", "BobsHouse.Door");
 
 	//Grandmother Character
-	Action("CreateCharacter(Grandmother, A)", true);
-	Action("SetClothing(Grandmother, Beggar)", true);
-	Action("SetHairStyle(Grandmother, Ponytail)", true);
-	Action("SetHairColor(Grandmother, Gray)", true);
-	Action("SetPosition(Grandmother, BobsHouse.Bookshelf)", true);
+	SetupCharacter("Grandmother", "A", "Beggar", "Ponytail", "Gray", "BobsHouse.Bookshelf");
 
 	//Seller Character
-	Action("CreateCharacter(Seller, B)", true);
-	Action("SetClothing(Seller, Merchant)", true);
-	Action("SetHairStyle(Seller, Spiky)", true);
-	Action("SetPosition(Seller, MerchantFarm.Anvil)", true);
+	SetupCharacter("Seller", "B", "Merchant", "Spiky", "", "MerchantFarm.Anvil");
 
 	//Items
 	Action("CreateItem(Grandmothers coin, Coin)", true);
@@ -45,13 +34,15 @@ int main() {
 	Action("CreateItem(Bad Sword, Sword)", true);
 
 	//Icons
-	Action("EnableIcon(Open_Door, Open, BobsHouse.Door, Leave the house, true)", true);
-	Action("EnableIcon(Open_Door, Open, MerchantFarm.Door, Enter the house, true)", true);
-	Action("EnableIcon(Talk_To_Grandmother, Talk, Grandmother, Talk To Grandmother, true)", true);
-	Action("EnableIcon(Talk_To_Seller, Talk, Seller, Talk To Seller, true)", true);
-	Action("EnableIcon(Take_Coin, Hand, Grandmothers coin, Take the coin, true)", true);
-	Action("EnableIcon(Buy_Apple, Coins, Good Apple, Buy the apple, true)", true);
-	Action("EnableIcon(Buy_Sword, Coins, Bad Sword, Buy the sword, true)", true);
+	vector<string> titles{"Open_Door", "Open_Door", "Talk_To_Grandmother", "Talk_To_Seller", "Take_Coin", "Buy_Apple", "Buy_Sword"};
+	vector<string> icons{"Open", "Open", "Talk", "Talk", "Hand", "Coins", "Coins"};
+	vector<string> objects{"BobsHouse.Door", "MerchantFarm.Door", "Grandmother", "Seller", "Grandmothers coin", "Good Apple", "Bad Sword"};
+	vector<string> descriptions{"Leave the house", "Enter the house", "Talk To Grandmother", "Talk To Seller", "Take the coin", "Buy the apple", "Buy the sword"};
+	vector<string> defaults{"true", "true", "true", "true", "true", "true", "true",};
+
+
+
+	SetupIcons(titles, icons, objects, descriptions, defaults);
 
 	//Menu
 	Action("ShowMenu()", true);
