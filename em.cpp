@@ -15,6 +15,9 @@ using namespace std;
 - When the player returns to the cottage with the good item, grandmother is happy. Otherwise she is mad. (DONE, OLD) */
 
 int main() {
+
+	//---------- CHAPTER 1 SETUP ----------
+
 	//Place Creations
 	Action("CreatePlace(BobsHouse, Cottage)", true);
 	Action("CreatePlace(MerchantFarm, Farm)", true);
@@ -61,9 +64,12 @@ int main() {
 	bool has_sword = false;
 	string modified_I = "";
 
-	// Respond to input.
+	//---------- END SETUP ----------
+
+
+
+	//---------- CHAPTER 1 MAIN LOOP ----------
 	while (true) {
-		//----------Begin Setup----------
 		string i;
 		getline(cin, i);
 
