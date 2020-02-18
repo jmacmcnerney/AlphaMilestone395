@@ -91,3 +91,35 @@ void PurchaseFunct(string purchase, string input, vector<string> & storeInv, vec
 	coin = false;
 	purchaseCheck = true;
 }
+
+//Splits the input into one of its words. NumToSkip is to skip to the start of the word you want, Reverse is to start 
+//at the end of the string
+string splitInput(string input, int numToSkip, bool reverse) {
+	string output = "";
+
+	//For going forwards
+	if (!reverse) {
+		for (int i = 0 + numToSkip; i < input.size(); i++) {
+			if (input[i] == ' ') {
+				i = input.size();
+			}
+			if (i != input.size()) {
+				output = output + input[i];
+			}
+		}
+	}
+
+	//For going backwards
+	else {
+		for (int i = input.size()-1; i > 0; i--) {
+			if (input[i] == ' ') {
+				i = 0;
+			}
+			if (i != 0) {
+				output = input[i] + output;
+			}
+		}
+	}
+
+	return output;
+}
