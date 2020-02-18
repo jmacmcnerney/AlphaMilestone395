@@ -76,9 +76,8 @@ int main() {
 			modified_I = splitInput(i, 0, true);
 
 			if (modified_I == "Start") {
-				Action("SetCameraFocus(Bob)", true);
-				Action("HideMenu()", true);
-				Action("EnableInput()", true);
+				StartOption("Bob");
+
 			}
 			else if (modified_I == "take") {
 				Action("HideDialog()", true);
@@ -98,22 +97,35 @@ int main() {
 			else if (modified_I == "end") {
 				Action("HideDialog()", true);
 			}
+			else if (modified_I == "Resume") {
+				Action("HideMenu()", true);
+				Action("EnableInput()", true);
+			}
+			else if (modified_I == "Quit") {
+				Action("Quit()", true);
+			}
 		}
 		
 		//If it's under the "Key" keyword
 		else if (modified_I == "Key") {
-			Action("ClearList()", true);
-			for (string item : playerInv) {
-				Action("AddToList(" + item + ")", true);
+
+			modified_I = splitInput(i, 0, true);
+			if (modified_I == "Inventory") {
+				Action("ClearList()", true);
+				for (string item : playerInv) {
+					Action("AddToList(" + item + ")", true);
+				}
+				Action("ShowList(Bob)", true);
 			}
-			Action("ShowList(Bob)", true);
+			else if (modified_I == "Pause") {
+				Action("DisableInput()", true);
+				Action("ShowMenu()", true);
+			}
 		}
 		
 		//If it's under the "Close" keyword
 		else if (modified_I == "Close") {
-			Action("HideList()", true);
-			Action("ClearList()", true);
-			Action("EnableInput()", true);
+			CloseList();
 		}
 		
 		//If it's under the "Talk" keyword
@@ -122,7 +134,7 @@ int main() {
 
 			//Grandmother's dialog
 			if (modified_I == "Grandmother") {
-				SetupDialog("Bob", "Grandmother");
+				SetupDialog("Bob", "Grandmother", true);
 				if (has_apple)
 					Action("SetDialog(Thank you for getting that for me! [end|Of course!])", true);
 				else if (has_sword)
@@ -132,7 +144,7 @@ int main() {
 			}
 			//Seller's dialog
 			else if (modified_I == "Seller") {
-				SetupDialog("Bob", "Seller");
+				SetupDialog("Bob", "Seller", true);
 				if (has_coin)
 					Action("SetDialog(Check out what I have for sale! [buy|Let me see!] [end|No thanks.])", true);
 				else
@@ -150,11 +162,11 @@ int main() {
 				//Going outside
 				if (modified_I == "BobsHouse.Door") {
 					if (has_coin) {
-						Action("Exit(Bob, BobsHouse.Door, true)", true);
-						Action("Enter(Bob, MerchantFarm.Door, true)", true);
+						Transition("Bob", "BobsHouse.Door", "MerchantFarm.Door");
+
 					}
 					else {
-						SetupDialog("Bob", "Grandmother");
+						SetupDialog("Bob", "Grandmother", false);
 						if (has_apple)
 							Action("SetDialog(Dont leave! Dinner will be ready soon. [end|Yum!])", true);
 						else if (has_sword)
@@ -166,8 +178,8 @@ int main() {
 
 				//Going inside
 				else if (modified_I == "MerchantFarm.Door") {
-					Action("Exit(Bob, MerchantFarm.Door, true)", true);
-					Action("Enter(Bob, BobsHouse.Door, true)", true);
+					Transition("Bob", "MerchantFarm.Door", "BobsHouse.Door");
+
 				}
 
 			}

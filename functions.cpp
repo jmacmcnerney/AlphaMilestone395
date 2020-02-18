@@ -59,12 +59,14 @@ void SetupIcons(vector<string> titles, vector<string> icons, vector<string> obje
 }
 
 //Does the inital setup for Dialog
-void SetupDialog(string mainChar, string talkingTo) {
+void SetupDialog(string mainChar, string talkingTo, bool walk) {
 	string actionString = "";
 
 	Action("DisableInput()", true);
 
-	Action("WalkTo(" + mainChar + ", " + talkingTo + ")", true);
+	if (walk == true) {
+		Action("WalkTo(" + mainChar + ", " + talkingTo + ")", true);
+	}
 	Action("ShowDialog()", true);
 	Action("ClearDialog()", true);
 
@@ -78,7 +80,7 @@ void SetupDialog(string mainChar, string talkingTo) {
 void PurchaseFunct(string purchase, string input, vector<string> & storeInv, vector<string> & inventory, bool & coin, bool & purchaseCheck) {
 	
 	Action("RemoveFromList(" + purchase + ")", true);
-	for (int i = 0; i < storeInv.size(); i++) {
+	for (int i = 0; i < (signed)storeInv.size(); i++) {
 		if (storeInv[i] == purchase) {
 			storeInv.erase(storeInv.begin() + i);
 		}
@@ -122,4 +124,33 @@ string splitInput(string input, int numToSkip, bool reverse) {
 	}
 
 	return output;
+}
+
+//Closing narration box
+void CloseList() {
+	Action("HideList()", true);
+	Action("ClearList()", true);
+	Action("EnableInput()", true);
+}
+
+//Transition to other areas
+void Transition(string character, string exit, string entrance) {
+	Action("Exit(" + character + ", " + exit + ", true)", true);
+	Action("Enter(" + character + ", " + entrance + ", true)", true);
+}
+
+//Start option
+void StartOption(string mainChar) {
+	Action("SetCameraFocus(" + mainChar + ")", true);
+	Action("HideMenu()", true);
+	Action("EnableInput()", true);
+}
+
+//inventory interaction
+void AccessInventory(vector<string> inventory, string charName) {
+	Action("HideDialog()", true);
+	for (string item : inventory) {
+		Action("AddToList(" + item + ")", true);
+	}
+	Action("ShowList(" + charName + ")", true);
 }
