@@ -52,6 +52,7 @@ void runChapterOne() {
 	bool has_coin = false;
 	bool has_apple = false;
 	bool has_sword = false;
+	vector<bool> checks{has_coin, has_apple, has_sword};
 	string modified_I = "";
 
 	//---------- END SETUP ----------
@@ -76,18 +77,10 @@ void runChapterOne() {
 
 			}
 			else if (modified_I == "take") {
-				Action("HideDialog()", true);
-				for (string item : grandmotherInv) {
-					Action("AddToList(" + item + ")", true);
-				}
-				Action("ShowList(Grandmother)", true);
+				ShowInv("Grandmother", grandmotherInv);
 			}
 			else if (modified_I == "buy") {
-				Action("HideDialog()", true);
-				for (string item : sellerInv) {
-					Action("AddToList(" + item + ")", true);
-				}
-				Action("ShowList(Seller)", true);
+				ShowInv("Seller", sellerInv);
 			}
 
 			else if (modified_I == "end") {
@@ -184,27 +177,20 @@ void runChapterOne() {
 
 		//If it's under the "Take" keyword
 		else if (modified_I == "Take") {
-			Action("RemoveFromList(Grandmothers_coin)", true);
-			for (int i = 0; i < grandmotherInv.size(); i++) {
-				if (grandmotherInv[i] == "Grandmothers_coin") {
-					grandmotherInv.erase(grandmotherInv.begin() + i);
-				}
-			}
-			Action("DisableIcon(Take Coin, Grandmothers_coin)", true);
-			playerInv.push_back("Grandmothers_coin");
+			Grab("Grandmothers_coin", "Take Coin", grandmotherInv, playerInv, has_coin, has_coin, false);
 			has_coin = true;
 		}
 
+
 		else if (modified_I == "Buy") {
 			modified_I = splitInput(i, 0, true);
-
 			//Buying the Apple
 			if (modified_I == "Good_Apple") {
-				PurchaseFunct("Good_Apple", "Buy Apple", sellerInv, playerInv, has_coin, has_apple);
+				Grab("Good_Apple", "Buy Apple", sellerInv, playerInv, has_coin, has_apple, true);
 			}
 			//Buying the Sword
 			else if (modified_I == "Bad_Sword") {
-				PurchaseFunct("Bad_Sword", "Buy Sword", sellerInv, playerInv, has_coin, has_sword);
+				Grab("Bad_Sword", "Buy Sword", sellerInv, playerInv, has_coin, has_sword, true);
 			}
 		}
 

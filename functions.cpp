@@ -76,8 +76,16 @@ void SetupDialog(string mainChar, string talkingTo, bool walk) {
 	Action("EnableInput()", true);
 }
 
+void ShowInv(string person, vector<string> inventory) {
+	Action("HideDialog()", true);
+	for (string item : inventory) {
+		Action("AddToList(" + item + ")", true);
+	}
+	Action("ShowList(" + person + ")", true);
+}
+
 //Handles all of purchasing something for a coin
-void PurchaseFunct(string purchase, string input, vector<string> & storeInv, vector<string> & inventory, bool & coin, bool & purchaseCheck) {
+void Grab(string purchase, string input, vector<string> & storeInv, vector<string> & inventory, bool & coin, bool & itemCheck, bool purchaseCheck) {
 	
 	Action("RemoveFromList(" + purchase + ")", true);
 	for (int i = 0; i < (signed)storeInv.size(); i++) {
@@ -86,12 +94,17 @@ void PurchaseFunct(string purchase, string input, vector<string> & storeInv, vec
 		}
 	}
 	Action("DisableIcon(" + input + ", " + purchase + ")", true);
-	inventory.erase(inventory.begin());
+	if (purchaseCheck) {
+		inventory.erase(inventory.begin());
+	}
 	inventory.push_back(purchase);
 	Action("HideList()", true);
 
-	coin = false;
-	purchaseCheck = true;
+	if (purchaseCheck) {
+		coin = false;
+		itemCheck = true;
+	}
+	
 }
 
 //Splits the input into one of its words. NumToSkip is to skip to the start of the word you want, Reverse is to start 
