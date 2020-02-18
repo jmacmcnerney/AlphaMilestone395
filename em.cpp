@@ -190,10 +190,11 @@ int main() {
 		else if (modified_I == "Buy") {
 			modified_I = splitInput(i, 0, true);
 
+			//Buying the Apple
 			if (modified_I == "Good_Apple") {
 				PurchaseFunct("Good_Apple", "Buy Apple", sellerInv, playerInv, has_coin, has_apple);
 			}
-
+			//Buying the Sword
 			else if (modified_I == "Bad_Sword") {
 				PurchaseFunct("Bad_Sword", "Buy Sword", sellerInv, playerInv, has_coin, has_sword);
 			}
