@@ -17,7 +17,9 @@ using namespace std;
 
 int main() {
 
-	runChapterOne();
+	Chapter1 chapter1;
+	chapter1.runSetup();
+	chapter1.run();
 	//runChapterTwo();
 
 	return 0;

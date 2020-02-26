@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "icon.h"
 using namespace std;
 
 // Wait for given input before continueing
@@ -46,14 +47,10 @@ void SetupCharacter(string name, string bodyType, string clothing, string hairSt
 }
 
 //Icon Setup
-void SetupIcons(vector<string> titles, vector<string> icons, vector<string> objects, vector<string> descriptions, vector<string> defaults) {
+void SetupIcons(vector<Icon> icons) {
 	
-	int vectorSize = titles.size();
-	int sentinal = 0;
-
-	while (sentinal < vectorSize) {
-		Action("EnableIcon(" + titles[sentinal] + ", " + icons[sentinal] + ", " + objects[sentinal] + ", " + descriptions[sentinal] + ", " + defaults[sentinal] + ")", true);
-		sentinal++;
+	for (int i = 0; i != icons.size(); i++) {
+		Action("EnableIcon(" + icons[i].getTitle() + ", " + icons[i].getImage() + ", " + icons[i].getObject() + ", " + icons[i].getDescription() + ", " + icons[i].getIsDefault() + ")", true);
 	}
 
 }

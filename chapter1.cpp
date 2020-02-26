@@ -1,11 +1,19 @@
 #include <iostream>
 #include <string>
 #include "functions.cpp"
+#include "chapter1.h"
 
 using namespace std;
 
-void runChapterOne() {
+Chapter1::Chapter1() {
 
+}
+Chapter1::~Chapter1() {
+	while (icons.size() > 0) {
+		icons.pop_back();
+	}
+}
+bool Chapter1::runSetup() {
 	//---------- CHAPTER 1 SETUP ----------
 
 	//Place Creations
@@ -27,39 +35,35 @@ void runChapterOne() {
 	Action("CreateItem(Bad_Sword, Sword)", true);
 
 	//Icons
-	vector<string> titles{ "Open Door", "Open Door", "Talk To Grandmother", "Talk To Seller", "Take Coin", "Buy Apple", "Buy Sword" };
-	vector<string> icons{ "Open", "Open", "Talk", "Talk", "Hand", "Coins", "Coins" };
-	vector<string> objects{ "BobsHouse.Door", "MerchantFarm.Door", "Grandmother", "Seller", "Grandmothers_coin", "Good_Apple", "Bad_Sword" };
-	vector<string> descriptions{ "Leave the house", "Enter the house", "Talk To Grandmother", "Talk To Seller", "Take the coin", "Buy the apple", "Buy the sword" };
-	vector<string> defaults{ "true", "true", "true", "true", "true", "true", "true", };
-
-
-
-	SetupIcons(titles, icons, objects, descriptions, defaults);
+	icons.push_back(Icon("Open Door", "Open", "BobsHouse.Door", "Leave the house", "true"));
+	icons.push_back(Icon("Open Door", "Open", "MerchantFarm.Door", "Enter the house", "true"));
+	icons.push_back(Icon("Talk to Grandmother", "Talk", "Grandmother", "Talk to Grandmother", "true"));
+	icons.push_back(Icon("Talk to Seller", "Talk", "Seller", "Talk to Seller", "true"));
+	icons.push_back(Icon("Take Coin", "Hand", "Grandmothers_coin", "Take the coin", "true"));
+	icons.push_back(Icon("Buy Apple", "Coins", "Good_Apple", "Buy the apple", "true"));
+	icons.push_back(Icon("Buy Sword", "Coins", "Bad_Sword", "Buy the sword", "true"));
+	SetupIcons(icons);
 
 	//Menu
 	Action("ShowMenu()", true);
 
 	//Inventories
-	vector<string> playerInv;
-	vector<string> grandmotherInv;
-	vector<string> sellerInv;
 	grandmotherInv.push_back("Grandmothers_coin");
 	sellerInv.push_back("Good_Apple");
 	sellerInv.push_back("Bad_Sword");
 
 	//Bools
-	bool has_coin = false;
-	bool has_apple = false;
-	bool has_sword = false;
-	vector<bool> checks{has_coin, has_apple, has_sword};
-	string modified_I = "";
+	has_coin = false;
+	has_apple = false;
+	has_sword = false;
+	checks = { has_coin, has_apple, has_sword };
+	modified_I = "";
+
+	return true;
 
 	//---------- END SETUP ----------
-
-
-
-	//---------- CHAPTER 1 MAIN LOOP ----------
+}
+void Chapter1::run() {
 	while (true) {
 		string i;
 		getline(cin, i);
@@ -181,7 +185,6 @@ void runChapterOne() {
 			has_coin = true;
 		}
 
-
 		else if (modified_I == "Buy") {
 			modified_I = splitInput(i, 0, true);
 			//Buying the Apple
@@ -193,6 +196,5 @@ void runChapterOne() {
 				Grab("Bad_Sword", "Buy Sword", sellerInv, playerInv, has_coin, has_sword, true);
 			}
 		}
-
 	}
 }
