@@ -2,6 +2,7 @@
 #include <string>
 #include "functions.cpp"
 #include "chapter1.h"
+#include "icon.cpp"
 
 using namespace std;
 

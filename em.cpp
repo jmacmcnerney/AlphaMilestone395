@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-//#include "functions.cpp"
 #include "chapter1.cpp"
 
 using namespace std;

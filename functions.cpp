@@ -126,7 +126,7 @@ string splitInput(string input, int numToSkip, bool reverse) {
 		for (int i = input.size()-1; i > 0; i--) {
 			if (input[i] == ' ') {
 				i = 0;
-			}
+			}   
 			if (i != 0) {
 				output = input[i] + output;
 			}
